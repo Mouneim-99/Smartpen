@@ -45,7 +45,12 @@ void setup() {
 void loop() {
   mpu6050.update();
 
-  String data = 
+  String hand = "Right";                    // or Left
+String timestamp = String(millis());      // time since boot
+
+String data =
+      hand + "," +
+      timestamp + "," +
       String(mpu6050.getAccX()) + "," +
       String(mpu6050.getAccY()) + "," +
       String(mpu6050.getAccZ()) + "," +
