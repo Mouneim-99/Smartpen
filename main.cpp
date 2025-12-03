@@ -5,7 +5,7 @@
 
 const char* ssid = "D-Link";
 const char* password = "MAMRI2000";
-const char* host = "192.168.1.3";
+const char* host = " 192.168.1.4";
 const uint16_t port = 5000;
 
 WiFiClient client;
@@ -45,11 +45,10 @@ void setup() {
 void loop() {
   mpu6050.update();
 
-  String hand = "Right";                    // or Left
+                   
 String timestamp = String(millis());      // time since boot
 
 String data =
-      hand + "," +
       timestamp + "," +
       String(mpu6050.getAccX()) + "," +
       String(mpu6050.getAccY()) + "," +

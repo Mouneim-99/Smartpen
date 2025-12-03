@@ -2,6 +2,7 @@ import socket
 import csv
 from datetime import datetime
 
+
 HOST = "0.0.0.0"   # listen for ESP32 on all interfaces
 PORT = 5000        # must match ESP32
 
@@ -14,13 +15,17 @@ print("Server listening on port", PORT)
 conn, addr = server.accept()
 print("Connected by", addr)
 
+#input the used hand and the entred letter:
+Hand=input("Which hand are you using?\n").strip()
+label = input("Which letter are you collecting?\n").strip()
+
 # Create CSV file
 filename = f"data_{datetime.now().strftime('%Y%m%d_%H%M%S')}.csv"
-csv_file = open(filename, "w", newline="")
+csv_file = open(filename, "w", newline="", encoding="utf-8")
 csv_writer = csv.writer(csv_file)
 
 # Write header row
-csv_writer.writerow(["Hand", "Timestamp", "Ax", "Ay", "Az", "Gx", "Gy", "Gz"])
+csv_writer.writerow(["Hand","Letter","Timestamp", "Ax", "Ay", "Az", "Gx", "Gy", "Gz"])
 
 buffer = ""   # buffer to store incomplete packets
 
@@ -40,6 +45,6 @@ while True:
         row = line.split(",")
 
         # Expect **8 columns** exactly
-        if len(row) == 8:
-            csv_writer.writerow(row)
+        if len(row) == 7:
+            csv_writer.writerow([Hand,label]+row)
             csv_file.flush()   # save immediately
